@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio DOM</title>
+    <script type="text/javascript">
+        var Cambio = false;
+
+        function dom() {
+            alert("Calculando...")
+            let texto = document.getElementById("p1").innerHTML;
+            let texto2 = document.getElementById("p2").innerHTML;
+            let nombre = document.getElementById("p3").innerHTML;
+            alert(texto + " " + texto2 + " " + nombre);
+            var clases = document.getElementsByTagName("p"); // Array
+            for (var i = 0; i < clases.length; i++) {
+                alert(clases[i].innerHTML);
+            }
+            alert(clases[2].innerHTML);
+            const t = document.createElement("b");
+            t.textContent = "Elemento 1";
+            document.body.appendChild(t);
+            document.body.appendChild(document.createTextNode("Textooo"))
+            var opcion = prompt("¿Que bloque quieres borrar p1/p2/p3");
+            const element = document.getElementById(opcion);
+            element.remove();
+        }
+        function dom2() {
+            var negritas = document.getElementsByTagName("b")
+            var parrafos = document.getElementsByTagName("p")
+            for (var i = 0; i < negritas.length; i++) {
+                alert(negritas[i].innerHTML);
+            }
+            for (var i = 0; i < parrafos.length; i++) {
+                alert(parrafos[i].innerHTML);
+            }
+
+            var opcion = prompt("¿Que bloque quieres borrar p/b");
+            do {
+                var cosa = document.getElementsByTagName(opcion);
+                for (var i = 0; i < cosa.length; i++) {
+                    cosa[i].remove();
+                }
+            } while (cosa.length != 0)
+        }
+
+        function verde() {
+            var x = document.getElementsByTagName("b");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.color = "green";
+            }
+        }
+
+        function dom3() {
+
+            if (Cambio == false) {
+                document.getElementById("cosa").src = "tortilla-de-patatas-espanola.jpg";
+                Cambio = true;
+            } else {
+                document.getElementById("cosa").src = "7gkjis.gif";
+                Cambio = false;
+            }
+        }
+
+        function dom4() {
+            do {
+                var negritas = document.getElementsByTagName("b");
+                for (let i = 0; i < negritas.length; i++) {
+                    var subrayado = document.createElement("h1");
+                    subrayado.textContent = negritas[i].textContent;
+                    alert(subrayado.innerHTML);
+                    negritas[i].parentNode.replaceChild(subrayado, negritas[i]);
+                }
+            } while (negritas.length != 0)
+        }
+
+        function validacion() {
+            alert('Hola');
+            var texto = document.getElementById("nombre").value;
+            var dni = document.getElementById("dni").value;
+            var fecha = document.getElementById("año").value;
+            var contra = document.getElementById("contraseña").value;
+            if (/^[0-9]{8}[a-z]$/.test(dni)) {
+                dni.toUpperCase();
+            }
+            alert(dni);
+
+            if (/^[0-9]{8}[A-Z]$/.test(dni)) {
+                alert('[ERROR] El campo DNI está mal escrito');
+                return false;
+            }
+            else if (texto == null || texto == "") {
+                alert('[ERROR] El campo debe tener un valor de String');
+                return false;
+            }
+            else if (isNaN(nombre)) {
+                alert('[ERROR] El campo debe NO tener un valor de numero');
+                return false;
+            }
+            else if (fecha == null || fecha == "") {
+                alert('[ERROR] El campo debe tener un valor de Fecha');
+                return false;
+            }
+            else if (contra == null || contra == "") {
+                alert('[ERROR] Gilipollas quieres que te hacken o que?');
+                return false;
+            } else {
+                alert('Está cosa funciona')
+                return true;
+            }
+        }
+
+        function añadirtexto() {
+            var l = document.createElement("h2");
+            var texto = prompt("Que texto deseas añadir?");
+            l.textContent = texto;
+            document.body.appendChild(l);
+        }
+
+        function borrarPrimerParrafo() {
+            var r = document.getElementsByTagName("p");
+            r[0].remove();
+        }
+
+        function cambiarCabecera() {
+            do {
+                var h2 = document.getElementsByTagName("h2");
+                for (let i = 0; i < h2.length; i++) {
+                    var h5 = document.createElement("h5");
+                    h5.textContent = h2[i].textContent;
+                    h2[i].parentNode.replaceChild(h5, h2[i]);
+                }
+            } while (h2.length != 0)
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Tu muerto</h2>
+    <img id="cosa" src="7gkjis.gif">
+    <div id="div1">
+        <p id="p1">Hola</p>
+        <p id="p2">Mundo</p>
+        <p id="p3">Pepito</p>
+        <b id="b1">webos</b>
+        <p id="p4">hola</p>
+        <b id="b1">nananana</b>
+    </div>
+    <input type="button" value="Calculo" onclick="dom();">
+    <input type="button" value="Borrado" onclick="dom2();">
+    <input type="button" value="Verde" onclick="verde();">
+    <input type="button" value="Tortilla" onclick="dom3();">
+    <input type="button" value="Cambio" onclick="dom4();">
+    <input type="button" value="Añadir Texto" onclick="añadirtexto()">
+    <input type="button" value="Borrar primer Párrafo" onclick="borrarPrimerParrafo()">
+    <input type="button" value="Cambiar cabeceras" onclick="cambiarCabecera()">
+    <h2>Globos</h2>
+
+    <form action="ejemplo.php" method="post" onsubmit="return validacion()">
+        <p>*Usuario: <input type="text" name="nombre" size="40" id="nombre"></p>
+        <p>*DNI: <input type="text" name="DNI" size="40" id="dni"></p>
+        <p>*Año de nacimiento: <input type="number" name="nacido" min="1900" id="año"></p>
+        <p>*Contraseña <input type="password" name="contraseña" value="Contra" id="contraseña"></p>
+        <p>*Sexo:
+            <input type="radio" name="hm" value="h"> Hombre
+            <input type="radio" name="hm" value="m"> Mujer
+        </p>
+        <p>
+            <input type="checkbox" name="fpt" value="F"> Futbol
+            <input type="checkbox" name="fpt" value="P"> La play
+            <input type="checkbox" name="fpt" value="T"> Tortilla
+        </p>
+        <p>
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Borrar">
+        </p>
+    </form>
+</body>
+
+</html>

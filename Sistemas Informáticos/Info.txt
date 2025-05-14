@@ -1,0 +1,2 @@
+EL archivo es un script de una calculadora que hicimos en Ubuntu y funciona 
+perfectamente.
